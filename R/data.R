@@ -1,0 +1,79 @@
+#' Data from the chemotherapy for stace B/C colon cancer study
+#'
+#' This dataset is a reduced version of the dataset colon from the package
+#' survival (Therneau, T.M. et al., 2022). Each observation is a transition from
+#' recurrence of colon cancer to death or censoring. The time scales are time
+#' from randomization to recurrence, time from randomization to death or
+#' censoring and time from recurrence of the cancer to death or censoring.
+#' Only observations about individuals with a recurrence of the cancer are selected.
+#' Additionally, 7 individuals with exit times from the risk set equal to entry times in the
+#' recurrence state (0 exposure time) were dropped from the sample.
+#' In the original dataset, all times of recurrence are known precisely, so that
+#' after recurrence all individuals are followed right from entry in the state,
+#' without left truncation. To be able to illustrate
+#' how to include left truncated times in the model, artificial left truncated
+#' entry in the 'recurrence' state are introduced for 40 individuals.
+#'
+#'
+#'
+#' @name reccolon2ts
+#' @docType data
+#' @usage data(reccolon2ts)
+#' @format ## reccolon2ts A data.table with 461 rows and 25 columns:
+#'  \describe{
+#'   \item{id}{patient's id}
+#'   \item{study}{1 for all patients}
+#'   \item{rx}{Treatment - Obs(ervation), Lev(amisole), Lev(amisole)+5-FU}
+#'   \item{sex}{1=male, 0=female}
+#'   \item{age}{Age at transplant in years}
+#'   \item{obstruct}{obstruction of colon by tumor: 1=yes}
+#'   \item{perfor}{perforation of colon: 1=yes}
+#'   \item{adhere}{adherence to nearby organs: 1=yes}
+#'   \item{nodes}{number of lymph nodes with detectable cancer}
+#'   \item{status}{censoring status: 0=censoring, 1=event}
+#'   \item{differ}{differentiation of tumour: 1=well, 2=moderate, 3=poor}
+#'   \item{extent}{extent of local spread: 1=submucosa, 2=muscle, 3=serosa,
+#'   4=contigous structures}
+#'   \item{surg}{time from surgery to registration: 0=short, 1=long}
+#'   \item{node4}{more than 4 positive lymph nodes}
+#'   \item{etype}{2 for all patients (2=death)}
+#'   \item{timedc}{time in days from randomization to death or censoring}
+#'   \item{timer}{time in days from randomization to recurrence}
+#'   \item{timesr}{time in days from recurrence to death or censoring}
+#'   \item{entrys}{artificial entry time on the time since
+#'   recurrence scale. For most of the individual this is 0 (no left
+#'   truncation). For 40 individuals a random number between 1 and the exit time
+#'   on the time since recurrence scale (timesr) is simulated.}
+#'   \item{entryt}{time in days from randomization to observation in the
+#'   recurrence state. If the individual is observed from entry in the
+#'   recurrence state this is equal to the time at recurrence. If the entry in
+#'   the recurrence state is not observed from the beginning, left truncation is
+#'   observed. This is not present in the original data, but has been here
+#'   introduced artificially for 40 individuals. This is done by first
+#'   increasing the time at recurrence by a random number between 1 and the exit
+#'   time on the time since recurrence scale. Then, the time at recurrence is
+#'   added to the artificial entry time.}
+#'   \item{timedc_y}{time in years from randomization to death or censoring}
+#'   \item{timer_y}{time in years from randomization to recurrence}
+#'   \item{entrys_y}{left truncated entry in the recurrence state measured in
+#'   years since recurrence}
+#'   \item{entryt_y}{left truncated entry in the recurrence state measured in
+#'   years since randomization}
+#'   \item{timesr_y}{time in years from recurrence to death or
+#'   censoring} }
+#'
+#' @source Therneau, T. (2023). A Package for Survival Analysis in R. R package
+#'   version 3.5-3, <https://CRAN.R-project.org/package=survival>
+#' @references Moertel, C.G, et al. (1995). Fluorouracil plus Levamisole as
+#'   Effective Adjuvant Theraphy after Resection of Stage III Colon Carcinoma: A
+#'   Final Report. Annals of Internal Medicine, 122:321-326
+#'
+#'   Moerel, C.G., et al. (1990). Levamisole and Fluorouracil for Adjvant
+#'   Theraphy of Resected Colon Carcinoma. The New England Journal of Medicine,
+#'   322:352-8
+#'
+#' @examples
+#' data(reccolon2ts)
+#' rm(reccolon2ts)
+#'
+"reccolon2ts"
