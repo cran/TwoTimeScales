@@ -31,6 +31,8 @@
 #'     of dimension p by p.
 #'   * `SE_beta` The vector of length p of estimated Standard Errors for the `beta`
 #'      coefficients.
+#'   * `Cov_Alpha_beta` The matrix with the covariance values between the `Alpha`
+#'      and `beta` coefficients.
 #'   * `Eta0` The matrix of values of the baseline linear predictor (log-hazard)
 #'     of dimension nu by ns.
 #'   * `H` The hat-matrix.
@@ -39,7 +41,7 @@
 #'   * `aic` The value of the AIC.
 #'   * `bic` The value of the BIC.
 #'   * `Bbases` a list with the B-spline bases `Bu` and `Bs`.
-#'
+#' @keywords internal
 GLAM_2d_covariates <- function(R, Y,
                                Bu, Bs, Z,
                                Wprior = NULL,
@@ -211,6 +213,7 @@ GLAM_2d_covariates <- function(R, Y,
   SE <- sqrt(diag(Cov))
   Cov_Alpha <- Cov[1:(cu * cs), 1:(cu * cs)]
   Cov_beta <- Cov[(cu * cs + 1):(cu * cs + p), (cu * cs + 1):(cu * cs + p)]
+  Cov_Alpha_beta <- Cov[1:(cu * cs), (cu * cs + 1):(cu * cs + p)]
 
   # ---- Save results in list ----
   Alpha <- matrix(Alpha, nrow = cu, ncol = cs)
@@ -228,6 +231,7 @@ GLAM_2d_covariates <- function(R, Y,
     beta = beta,
     Cov_beta = Cov_beta,
     SE_beta = SE_beta,
+    Cov_Alpha_beta = Cov_Alpha_beta,
     Eta0 = Base,
     H = H,
     deviance = dev,

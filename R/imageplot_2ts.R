@@ -2,7 +2,7 @@
 #'
 #' `imageplot_2ts()` plots an image of the two time scales hazard (or survival or
 #'   cumulative hazard) with contour lines.
-#'   This is the default call implemented in plot.haz2ts.
+#'   This is the default call implemented in plot.haz2ts and other functions.
 #'
 #' @param x The coordinates for the x-axis. This is a vector of intervals
 #'   over the `u` axis (default), a matrix with the corner points of
@@ -141,7 +141,8 @@ imageplot_2ts <- function(x, y, z,
     }
   }
   if (is.null(opts$ylim)) opts$ylim <- c(min(unique(y)), max(unique(y)))
-   # ---- No contour if original and not rectangular_grid
+
+  # ---- No contour if original and not rectangular_grid
   if (opts$original & (!opts$rectangular_grid)) opts$contour_lines <- FALSE
 
   # ---- Plot ----

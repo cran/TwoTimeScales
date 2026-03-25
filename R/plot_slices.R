@@ -27,7 +27,8 @@
 #'    on the y axis.
 #'  * `cex_main` The magnification to be used for the main title, default is `1.2`.
 #'  * `cex_lab` The magnification to be used for the axis labels, default is `1`.
-#'  * `lwd` The line's width. Default is `2`.
+#'  * `lwd` The line width. Default is `2`.
+#'  * `lty` The line type.
 #'
 #' @return A plot of the slices of the hazard cut at selected points.
 #'
@@ -56,7 +57,8 @@ plot_slices <- function(x, y,
     ylim = NULL,
     cex_main = 1.2,
     cex_lab = 1,
-    lwd = 2
+    lwd = 2,
+    lty = 1
   )
 
   Nopts <- names(opts)
@@ -112,7 +114,7 @@ plot_slices <- function(x, y,
   matplot(x, to_plot,
     type = "l",
     lwd = opts$lwd,
-    lty = 1,
+    lty = opts$lty,
     col = col_palette,
     main = opts$main,
     cex.main = opts$cex_main,

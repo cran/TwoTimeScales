@@ -6,8 +6,8 @@
 #'      from a fitted model. The function is also called internally from `plot()`
 #'      if the user wants to plot the cumulative hazard from a fitted model.
 #'
-#' @param fitted_model (optional) The output of the function `fit2ts`.
-#'   This is an object of class `'haz2ts'` or `'haz2tsLMM'`.
+#' @param fitted_model (optional) An object of class `'haz2ts'`, `'haz2tsLMM'`,
+#'  `'haz2tsPGAM'`, or `'haz2tsVCM'`.
 #' @param plot_grid (optional) A list containing the parameters to build a new
 #'   finer grid of intervals over `u` and `s` for plotting. This must be of the
 #'   form:
@@ -40,7 +40,7 @@
 #'
 #' @return A list with the following elements:
 #'          * `Haz` a list of estimated hazard and associated SEs
-#'           (obtained from the function `get_hazard_2d`);
+#'           (obtained from the function `get_hazard_2d()`);
 #'          * `CumHaz` the cumulated hazard estimate over `u` and `s`;
 #'          * `cause` (if provided) the short name for the cause.
 #'
@@ -76,27 +76,8 @@ cumhaz2ts <- function(fitted_model,
                       where_slices = NULL,
                       direction = c("u", "s", NULL),
                       tmax = NULL) {
-  if(is.null(plot_grid)){
-    Bbases <- fitted_model$optimal_model$Bbases
-    midu <- attributes(Bbases$Bu)$x
-    mids <- attributes(Bbases$Bs)$x
-    du <- midu[2] - midu[1]
-    ds <- mids[2] - mids[1]
-    intu <- midu + du / 2
-    intu <- c(intu[1] - du/2, intu)
-    umin <- min(intu)
-    umax <- max(intu)
-    ints <- mids + ds / 2
-    ints <- c(ints[1] - ds/2, ints)
-    smin <- min(ints)
-    smax <- max(ints)
-    plot_grid <- list(
-      c("umin" = umin, "umax" = umax, "du" = du),
-      c("smin" = smin, "smax" = smax, "ds" = ds)
-    )
-  }
 
-  if (inherits(fitted_model, "haz2ts")) {
+  if (inherits(fitted_model, c("haz2ts", "haz2tsPGAM", "haz2tsVCM"))) {
     Haz <- get_hazard_2d(
       fitted_model = fitted_model,
       plot_grid = plot_grid,
@@ -115,12 +96,12 @@ cumhaz2ts <- function(fitted_model,
         tmax = tmax
       )
     } else {
-      stop("'x' must be either a 'haz2ts' object or a 'haz2tsLMM' object")
+      stop("'x' must be one of these classes: 'haz2ts', 'haz2tsLMM', 'haz2tsPGAM' or 'haz2tsVCM'")
     }
   }
   # Cumulative Hazards
   ds <- Haz$new_plot_grid$ds
-  CumHaz <- t(apply(Haz$hazard, 1, cumsum) * ds)
+  CumHaz <- t(apply(Haz$hazard  * ds, 1, cumsum))
 
   res <- list(
     "Haz" = Haz,
@@ -130,20 +111,21 @@ cumhaz2ts <- function(fitted_model,
     res$cause <- cause
   }
 
-  class(res) <- "cumhaz2ts"
+#  class(res) <- "cumhaz2ts"
   return(res)
 }
 
 #' Survival function with two time scales
 #'
 #' @description
-#' Computes the survival matrix, that contains the probability of not
+#' Computes the survival matrix containing the probability of not
 #' experiencing an event (of any cause) by time `s` and fixed entry time `u`.
 #' The survival function can be obtained from one fitted model with only one
 #' event type, or combining information from several cause-specific hazard
-#' in a competing risks model. In the first case, a fitted object of class `'haz2ts'`
-#' or `'haz2tsLMM'` can be passed directly as argument to the function. In the
-#' competing risks framework, the user should provide a list of cause-specific
+#' in a competing risks model. In the first case, a fitted object of class `'haz2ts'`,
+#' `'haz2tsLMM'`, `'haz2tsPGAM'`, or `'haz2tsVCM'` can be passed directly as
+#' argument to the function.
+#' In the competing risks framework, the user should provide a list of cause-specific
 #' cumulative hazard matrices. The function is also called internally from `plot()`
 #' if the user wants to plot the cumulative hazard from a fitted model.
 #'
@@ -152,8 +134,8 @@ cumhaz2ts <- function(fitted_model,
 #'  matrices (minimum one element needs to be supplied).
 #'  If more than one cause-specific cumulated hazard is provided,
 #'  then they should all be matrices of the same dimension.
-#' @param fitted_model (optional) The output of the function `fit2ts`.
-#'  This is an object of class `'haz2ts'` or `'haz2tsLMM'`.
+#' @param fitted_model (optional) An object of class `'haz2ts'`, `'haz2tsLMM'`,
+#'  `'haz2tsPGAM'`, or `'haz2tsVCM'`.
 #' @param plot_grid (optional) A list containing the parameters to build a new
 #'   finer grid of intervals over `u` and `s` for plotting. This must be of the
 #'   form:
@@ -238,7 +220,7 @@ surv2ts <- function(cumhaz = NULL,
     }
   } else {
     if(!is.null(fitted_model)){
-      if (inherits(fitted_model, "haz2ts")) {
+      if (inherits(fitted_model, c("haz2ts", "haz2tsPGAM", "haz2tsVCM"))) {
         Haz <- get_hazard_2d(
           fitted_model = fitted_model,
           plot_grid = plot_grid,
@@ -257,12 +239,13 @@ surv2ts <- function(cumhaz = NULL,
             tmax = tmax
           )
         } else {
-          stop("'x' must be either a 'haz2ts' object or a 'haz2tsLMM' object")
+          stop("'x' must be an object of one of these classes: 'haz2ts', 'haz2tsPGAM', 'haz2tsVCM', or 'haz2tsLMM'.")
         }
       }
       # Cumulative Hazards
       ds <- Haz$new_plot_grid$ds
       CumHaz <- t(apply(Haz$hazard, 1, cumsum) * ds)
+
       Surv2ts <- list("vector", length = 1) # this is for compatibility
       Surv2ts$Surv2ts <- exp(-CumHaz)
       attr(Surv2ts, "plot_grid") <- Haz$new_plot_grid
@@ -325,13 +308,13 @@ cuminc2ts <- function(haz = list(),
   # First, calculate the cumulative hazards
   CumHaz <- vector("list", length = ncauses)
   for (i in 1:ncauses){
-    CumHaz[[i]] <- t(apply(haz[[i]], 1, cumsum) * ds)
+    CumHaz[[i]] <- t(apply(haz[[i]]  * ds , 1, cumsum))
   }
   # overall survival
   surv <- surv2ts(CumHaz)$Surv2ts
   CIF2ts <- vector("list", length = ncauses)
   for (i in 1:ncauses) {
-    CIF2ts[[i]] <- t(apply(haz[[i]] * surv, 1, cumsum) * ds)
+    CIF2ts[[i]] <- t(apply((haz[[i]] * surv) * ds, 1, cumsum))
     if (!is.null(cause)) {
       names(CIF2ts)[i] <- cause[i]
     }
@@ -340,4 +323,6 @@ cuminc2ts <- function(haz = list(),
   class(CIF2ts) <- "cif2ts"
   return(CIF2ts)
 }
+
+
 

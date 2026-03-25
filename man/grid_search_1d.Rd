@@ -37,7 +37,7 @@ by n.}
 \item{Wprior}{An optional vector of a-priori weights.}
 
 \item{optim_criterion}{The criterion to be used for optimization:
-\code{"aic"} (default) or \code{"bic"}. BIC penalized model complexity more strongly
+\code{"aic"} (default) or \code{"bic"}. BIC penalizes model complexity more strongly
 than AIC, so that its usage is recommended when a smoother fit is preferable
 (see also Camarda, 2012).}
 
@@ -69,7 +69,7 @@ values is returned, marks the optimal \code{log_10(rho_s)} in the plot.
 }}
 }
 \value{
-An object of class \code{h1tsfit} with the following elements:
+An list with the following elements:
 \itemize{
 \item \code{optimal_model} A list containing the results of the optimal model.
 \item \code{optimal_logrho} The optimal value of \code{log10(rho_s)}.
@@ -91,3 +91,4 @@ Smoothing Poisson Counts with P-Splines."
 Journal of Statistical Software, 50(1), 1–24.
 https://doi.org/10.18637/jss.v050.i01
 }
+\keyword{internal}

@@ -3,7 +3,7 @@
 #' @description `fit2tsmodel_ucminf()` performs a numerical optimization of the
 #'   AIC or BIC of the two time scales model.
 #'
-#'   It finds the optimal values of `log_10(rho_u)` and `log_10(rho_s)`
+#'   It finds the optimal values of \eqn{\log_{10}(\rho_u)} and \eqn{\log_{10}(\rho_s)}
 #'   and returns the estimated optimal model.
 #'   See also [ucminf::ucminf()].
 #'
@@ -21,7 +21,7 @@
 #' R package version 1.2.2, <https://CRAN.R-project.org/package=ucminf>
 #'
 #' @import ucminf
-
+#' @keywords internal
 
 fit2tsmodel_ucminf <- function(Y, R,
                                Z = NULL,
@@ -39,7 +39,8 @@ fit2tsmodel_ucminf <- function(Y, R,
     maxiter = 20,
     conv_crit = 1e-5,
     verbose = FALSE,
-    monitor_ev = FALSE
+    monitor_ev = FALSE,
+    xtol = 1e-5
   )
   Ncon <- names(con)
   namesCon <- names(control_algorithm)
@@ -62,7 +63,8 @@ fit2tsmodel_ucminf <- function(Y, R,
       Du = Du, Ds = Ds,
       Wprior = Wprior,
       ridge = ridge,
-      control_algorithm = con
+      control_algorithm = con,
+      control = list(xtol = con$xtol)
     )
   }
   if(optim_criterion == "bic"){
@@ -75,7 +77,8 @@ fit2tsmodel_ucminf <- function(Y, R,
       Du = Du, Ds = Ds,
       Wprior = Wprior,
       ridge = ridge,
-      control_algorithm = con
+      control_algorithm = con,
+      control = list(xtol = con$xtol)
     )
   }
 
