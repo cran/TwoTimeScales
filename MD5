@@ -1,4 +1,4 @@
-32b644d8bedab1bb6721b55c34ec6ff8 *DESCRIPTION
+8080c6fd2e05523d88b9c640bc797d1a *DESCRIPTION
 b9fbb8de7353e1e476630ba1270a4318 *NAMESPACE
 158a09d5cec95248c8a905ae7de6daa3 *NEWS.md
 8f434f962c39a33a906d846a73927bf9 *R/GLAM_1d_covariates.R
@@ -53,7 +53,7 @@ d8362c4af5fe7f9df589bd52069de0e3 *R/predict_haz2ts_pointwise.R
 99a136613d1c398808d1e255f51468a7 *R/prepare_data.R
 20176056efaa34fc661303c5c5966590 *R/prepare_data_LMMsolver.R
 6f4dd9ad0953eb01d9c7d7a632343240 *R/print.data2ts.R
-aa3f2218736ba6e6187559c61a733416 *R/select_model2ts.R
+e2b56ef5b34f786ebfa1c0b83ff68032 *R/select_model2ts.R
 e56590657329fdf88611701d709fd276 *R/utot.R
 f47669561bff9d7b7c014b9d0d3df03a *README.md
 9d40159f50a5fc9949cbfe95a2884126 *build/partial.rdb
@@ -94,6 +94,7 @@ b796ae33c2a09cd136c932ebc0a9b3ca *man/figures/cumhaz-2.png
 01aee4131fd29dd01d85f14e50242bb4 *man/figures/cut-extra-1.png
 710d099d6a3916348087d1107af2114a *man/figures/log10haz-1.png
 d4890db54f0240e100e5853f011a5fa7 *man/figures/loghaz-1.png
+144a68a5955b549441b4737b270e43e0 *man/figures/logo.png
 4758cc3efbda4bb399fb71892828ff98 *man/figures/new-grid-1.png
 538e5a062002c7f918bd488c760b223e *man/figures/onetime/CIs-lev-1.png
 1a17e6bdcf530185b9cf5e86aa38c4b4 *man/figures/onetime/HRs-plot-1.png
@@ -172,7 +173,7 @@ dcdebb0e2c3245f4d4448fb2af149264 *man/prepare_data.Rd
 e582d2a828525131f26da3b6da08d349 *man/prepare_data_LMMsolver.Rd
 2e4c6de236d9ab0b705159ba65572d72 *man/print.data2ts.Rd
 0e2ad7de4a0a293c0ef5321d067ac54c *man/reccolon2ts.Rd
-7b9e6b02859ce04ae9d26f95396a5f64 *man/select_model2ts.Rd
+8cd6db07fd6c26e156809bc2f145d066 *man/select_model2ts.Rd
 29ec5c665dff65d736a4a2238390539f *man/surv2ts.Rd
 332173f20d20942c02019350ea4dcadc *tests/spelling.R
 d313dc9884de1529870b62356454db09 *tests/testthat.R

@@ -1,7 +1,7 @@
 Package: TwoTimeScales
 Title: Analysis of Event Data with Two Time Scales
 Type: Package
-Version: 1.2.0
+Version: 1.2.1
 Authors@R: c(person("Angela", "Carollo", email = "carollo@demogr.mpg.de",  role = c("aut", "cre", "cph"), comment = c(ORCID = "0000-0002-5625-6553")),
            person("Paul H.C.", "Eilers", email = "p.eilers@erasmusmc.nl", role = "aut"),
            person("Jutta", "Gampe", email = "gampe@demogr.mpg.de", role = "aut"))
@@ -23,11 +23,11 @@ VignetteBuilder: knitr
 BugReports: https://github.com/AngelaCar/TwoTimeScales/issues
 Language: en-US
 NeedsCompilation: no
-Packaged: 2026-03-25 15:19:03 UTC; Carollo
+Packaged: 2026-03-30 11:03:49 UTC; Carollo
 Author: Angela Carollo [aut, cre, cph] (ORCID:
     <https://orcid.org/0000-0002-5625-6553>),
   Paul H.C. Eilers [aut],
   Jutta Gampe [aut]
 Maintainer: Angela Carollo <carollo@demogr.mpg.de>
 Repository: CRAN
-Date/Publication: 2026-03-25 16:20:17 UTC
+Date/Publication: 2026-03-30 14:10:35 UTC
